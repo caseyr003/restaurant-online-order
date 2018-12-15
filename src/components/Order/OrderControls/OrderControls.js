@@ -11,6 +11,7 @@ const controls = [
 
 const orderControls = (props) => (
   <div className={styles.OrderControls}>
+    <p><strong>Total Price: ${props.price.toFixed(2)}</strong></p>
     {controls.map(ctrl => (
       <OrderControl 
         key={ctrl.type} 

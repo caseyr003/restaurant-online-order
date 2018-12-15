@@ -54,7 +54,8 @@ class OrderBuilder extends Component {
         <OrderControls 
           itemAdded={this.addItemHandler}
           itemRemoved={this.removeItemHandler}
-          disabled={disabledItems} />
+          disabled={disabledItems}
+          price={this.state.totalPrice} />
       </Aux>
     );
   }
