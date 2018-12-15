@@ -1,3 +1,7 @@
+# Restaurant Online Ordering App
+
+This project was created for the React 16 - The Complete Guide course.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
