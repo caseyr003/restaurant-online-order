@@ -1,0 +1,56 @@
+.OrderControl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.OrderControl button {
+  display: block;
+  font: inherit;
+  padding: 5px;
+  margin: 0 5px;
+  width: 80px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  outline: none;
+}
+
+.OrderControl button:disabled {
+  background-color: #444;
+  border: 1px solid #333;
+  color: #ccc;
+  cursor: default;
+}
+
+.OrderControl button:hover:disabled {
+  background-color: #444;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.Label {
+  padding: 10px;
+  font-weight: bold;
+  width: 80px;
+}
+
+.OrderControl .Less {  
+  background-color: darkred;
+  color: white;
+}
+
+.OrderControl .More {
+  background-color: darkgreen;
+  color: white;
+}
+
+.OrderControl .Less:hover, .OrderControl .Less:active {  
+  background-color: red;
+  color: white;
+}
+
+.OrderControl .More:hover,.OrderControl .More:active {
+  background-color: green;
+  color: white;
+}

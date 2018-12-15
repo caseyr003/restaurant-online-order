@@ -1,0 +1,11 @@
+.OrderControls {
+  width: 100%;
+  height: 100px;
+  margin: auto;
+  padding: 10px 0;
+  background-color: #eee;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  box-shadow: 0 3px 2px #ccc;
+}
