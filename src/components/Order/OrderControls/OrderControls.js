@@ -12,7 +12,11 @@ const controls = [
 const orderControls = (props) => (
   <div className={styles.OrderControls}>
     {controls.map(ctrl => (
-      <OrderControl key={ctrl.type} label={ctrl.label} />
+      <OrderControl 
+        key={ctrl.type} 
+        label={ctrl.label}
+        added={() => props.itemAdded(ctrl.type)}
+        removed={() => props.itemRemoved(ctrl.type)} />
     ))}
   </div>
 );

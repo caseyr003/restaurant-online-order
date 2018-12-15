@@ -4,6 +4,13 @@ import OrderControls from '../../components/Order/OrderControls/OrderControls';
 
 import Aux from '../../hoc/Aux';
 
+const ITEM_PRICES = {
+  salad: 0.5,
+  bacon: 0.7,
+  cheese: 0.3,
+  meat: 1.1
+};
+
 class OrderBuilder extends Component {
   // constructor(props) {
   //   super(props);
@@ -15,13 +22,34 @@ class OrderBuilder extends Component {
       bacon: 0,
       cheese: 0,
       meat: 0
+    },
+    totalPrice: 3
+
+  }
+
+  addItemHandler = (type) => {
+    const items = {...this.state.items};
+    items[type]++;
+    const updatedPrice = this.state.totalPrice + ITEM_PRICES[type];
+    this.setState({items: items, totalPrice: updatedPrice});
+  }
+
+  removeItemHandler = (type) => {
+    if(this.state.items[type] > 0){
+      const items = {...this.state.items};
+      items[type]--;
+      const updatedPrice = this.state.totalPrice - ITEM_PRICES[type];
+      this.setState({items: items, totalPrice: updatedPrice});
     }
   }
+  
   render() {
     return(
       <Aux>
         <Order items={this.state.items} />
-        <OrderControls />
+        <OrderControls 
+          itemAdded={this.addItemHandler}
+          itemRemoved={this.removeItemHandler} />
       </Aux>
     );
   }
