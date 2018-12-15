@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Order from '../../components/Order/Order';
 
 import Aux from '../../hoc/Aux';
 
@@ -6,7 +7,7 @@ class OrderBuilder extends Component {
   render() {
     return(
       <Aux>
-        <div>Order Visual</div>
+        <Order />
         <div>Order Controls</div>
       </Aux>
     );
