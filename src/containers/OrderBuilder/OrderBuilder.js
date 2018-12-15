@@ -42,14 +42,19 @@ class OrderBuilder extends Component {
       this.setState({items: items, totalPrice: updatedPrice});
     }
   }
-  
+
   render() {
+    const disabledItems = {...this.state.items};
+    for (let key in disabledItems) {
+      disabledItems[key] = disabledItems[key] <= 0;
+    }
     return(
       <Aux>
         <Order items={this.state.items} />
         <OrderControls 
           itemAdded={this.addItemHandler}
-          itemRemoved={this.removeItemHandler} />
+          itemRemoved={this.removeItemHandler}
+          disabled={disabledItems} />
       </Aux>
     );
   }

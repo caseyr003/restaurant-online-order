@@ -16,7 +16,8 @@ const orderControls = (props) => (
         key={ctrl.type} 
         label={ctrl.label}
         added={() => props.itemAdded(ctrl.type)}
-        removed={() => props.itemRemoved(ctrl.type)} />
+        removed={() => props.itemRemoved(ctrl.type)}
+        disabled={props.disabled[ctrl.type]} />
     ))}
   </div>
 );
