@@ -65,6 +65,11 @@ class OrderBuilder extends Component {
     this.setState({purchasing: false});
   }
 
+  purchaseConfirmHandler = () => {
+    this.setState({purchasing: false});
+    alert("Thank you for your purchase!");
+  }
+
   render() {
     const disabledItems = {...this.state.items};
     for (let key in disabledItems) {
@@ -73,7 +78,10 @@ class OrderBuilder extends Component {
     return(
       <Aux>
         <Modal show={this.state.purchasing} modalDismissed={this.purchaseCancelHandler}>
-          <OrderSummary items={this.state.items} />
+          <OrderSummary 
+            items={this.state.items} 
+            purchaseCancelled={this.purchaseCancelHandler} 
+            purchaseConfirmed={this.purchaseConfirmHandler}/>
         </Modal>
         <Order items={this.state.items} />
         <OrderControls 
