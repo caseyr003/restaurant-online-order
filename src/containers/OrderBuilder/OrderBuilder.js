@@ -23,15 +23,30 @@ class OrderBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 3
-
+    totalPrice: 3,
+    purchasable: false
   }
+
+  updatePurchaseState(items) {
+    const sum = Object.keys(items)
+        .map(key => {
+          return items[key];
+        })
+        .reduce((sum, el) => {
+          return sum + el;
+        }, 0);
+
+    this.setState({purchasable: sum > 0});
+    
+  }
+
 
   addItemHandler = (type) => {
     const items = {...this.state.items};
     items[type]++;
     const updatedPrice = this.state.totalPrice + ITEM_PRICES[type];
     this.setState({items: items, totalPrice: updatedPrice});
+    this.updatePurchaseState(items);
   }
 
   removeItemHandler = (type) => {
@@ -40,6 +55,7 @@ class OrderBuilder extends Component {
       items[type]--;
       const updatedPrice = this.state.totalPrice - ITEM_PRICES[type];
       this.setState({items: items, totalPrice: updatedPrice});
+      this.updatePurchaseState(items);
     }
   }
 
@@ -55,7 +71,8 @@ class OrderBuilder extends Component {
           itemAdded={this.addItemHandler}
           itemRemoved={this.removeItemHandler}
           disabled={disabledItems}
-          price={this.state.totalPrice} />
+          price={this.state.totalPrice}
+          purchasable={this.state.purchasable} />
       </Aux>
     );
   }
