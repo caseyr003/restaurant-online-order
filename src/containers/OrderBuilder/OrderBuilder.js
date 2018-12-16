@@ -79,7 +79,8 @@ class OrderBuilder extends Component {
       <Aux>
         <Modal show={this.state.purchasing} modalDismissed={this.purchaseCancelHandler}>
           <OrderSummary 
-            items={this.state.items} 
+            items={this.state.items}
+            price={this.state.totalPrice}
             purchaseCancelled={this.purchaseCancelHandler} 
             purchaseConfirmed={this.purchaseConfirmHandler}/>
         </Modal>
