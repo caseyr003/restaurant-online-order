@@ -12,9 +12,6 @@ const order = (props) => {
     .reduce((arr, el) => {
       return arr.concat(el)
     }, []);
-  
-
-  console.log(transformedItems);
 
   if(transformedItems.length === 0) {
     transformedItems = <p>Start adding items to your order</p>;

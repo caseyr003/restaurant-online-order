@@ -3,6 +3,8 @@ import Order from '../../components/Order/Order';
 import OrderControls from '../../components/Order/OrderControls/OrderControls';
 
 import Aux from '../../hoc/Aux';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
 
 const ITEM_PRICES = {
   salad: 0.5,
@@ -12,10 +14,7 @@ const ITEM_PRICES = {
 };
 
 class OrderBuilder extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {...};
-  // }
+
   state = {
     items: {
       salad: 0,
@@ -36,10 +35,8 @@ class OrderBuilder extends Component {
           return sum + el;
         }, 0);
 
-    this.setState({purchasable: sum > 0});
-    
+    this.setState({purchasable: sum > 0}); 
   }
-
 
   addItemHandler = (type) => {
     const items = {...this.state.items};
@@ -66,6 +63,9 @@ class OrderBuilder extends Component {
     }
     return(
       <Aux>
+        <Modal>
+          <OrderSummary items={this.state.items} />
+        </Modal>
         <Order items={this.state.items} />
         <OrderControls 
           itemAdded={this.addItemHandler}
