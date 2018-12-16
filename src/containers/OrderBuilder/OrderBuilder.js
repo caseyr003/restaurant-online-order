@@ -23,7 +23,8 @@ class OrderBuilder extends Component {
       meat: 0
     },
     totalPrice: 3,
-    purchasable: false
+    purchasable: false,
+    purchasing: false
   }
 
   updatePurchaseState(items) {
@@ -56,6 +57,10 @@ class OrderBuilder extends Component {
     }
   }
 
+  purchasingHandler = () => {
+    this.setState({purchasing: true});
+  }
+
   render() {
     const disabledItems = {...this.state.items};
     for (let key in disabledItems) {
@@ -63,7 +68,7 @@ class OrderBuilder extends Component {
     }
     return(
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary items={this.state.items} />
         </Modal>
         <Order items={this.state.items} />
@@ -72,7 +77,8 @@ class OrderBuilder extends Component {
           itemRemoved={this.removeItemHandler}
           disabled={disabledItems}
           price={this.state.totalPrice}
-          purchasable={this.state.purchasable} />
+          purchasable={this.state.purchasable}
+          ordered={this.purchasingHandler} />
       </Aux>
     );
   }
