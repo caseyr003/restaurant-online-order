@@ -25,8 +25,8 @@ class OrderItem extends Component {
       case('cheese'):
         item=<div className={styles.Cheese}></div>;
         break;
-      case('salad'):
-        item=<div className={styles.Salad}></div>;
+      case('lettuce'):
+        item=<div className={styles.Lettuce}></div>;
         break;
       case('bacon'):
         item=<div className={styles.Bacon}></div>;

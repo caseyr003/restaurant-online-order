@@ -7,7 +7,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
 
 const ITEM_PRICES = {
-  salad: 0.5,
+  lettuce: 0.5,
   bacon: 0.7,
   cheese: 0.3,
   meat: 1.1
@@ -17,7 +17,7 @@ class OrderBuilder extends Component {
 
   state = {
     items: {
-      salad: 0,
+      lettuce: 0,
       bacon: 0,
       cheese: 0,
       meat: 0
