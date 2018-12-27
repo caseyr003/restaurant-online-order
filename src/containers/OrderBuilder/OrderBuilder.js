@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Order from '../../components/Order/Order';
 import OrderControls from '../../components/Order/OrderControls/OrderControls';
-
 import Aux from '../../hoc/Aux';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
 
 const ITEM_PRICES = {
   lettuce: 0.5,
@@ -66,8 +66,29 @@ class OrderBuilder extends Component {
   }
 
   purchaseConfirmHandler = () => {
+    const order = {
+      name: 'New Order',
+      cost: this.state.totalPrice,
+      customer: {
+        name: 'Casey',
+        address: {
+          street: '1000 JS Way',
+          zipCode: '86753',
+          country: 'US'
+        },
+        email: 'casey@testemail.com'
+      },
+      deliveryMethod: 'pickup'
+    }
+    
+    axios.post('/orders', order)
+      .then(response => {
+        alert("Order Successful. Thank you for your purchase!");
+      })
+      .catch(error => {
+        alert("Order Failed. Please try again!");
+      });
     this.setState({purchasing: false});
-    alert("Thank you for your purchase!");
   }
 
   render() {
