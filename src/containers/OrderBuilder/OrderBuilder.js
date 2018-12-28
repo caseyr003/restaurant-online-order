@@ -67,10 +67,16 @@ class OrderBuilder extends Component {
 
   purchaseConfirmHandler = () => {
     const order = {
-      name: 'New Order',
       cost: this.state.totalPrice,
+      items: {
+        lettuce: this.state.items.lettuce,
+        cheese: this.state.items.cheese,
+        bacon: this.state.items.bacon,
+        meat: this.state.items.meat
+      },
       customer: {
         name: 'Casey',
+        id: 1,
         address: {
           street: '1000 JS Way',
           zipCode: '86753',
