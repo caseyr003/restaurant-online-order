@@ -3,6 +3,7 @@ import Order from '../../components/Order/Order';
 import OrderControls from '../../components/Order/OrderControls/OrderControls';
 import Aux from '../../hoc/Aux';
 import Modal from '../../components/UI/Modal/Modal';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 
@@ -24,7 +25,8 @@ class OrderBuilder extends Component {
     },
     totalPrice: 3,
     purchasable: false,
-    purchasing: false
+    purchasing: false,
+    loading: false
   }
 
   updatePurchaseState(items) {
@@ -66,6 +68,8 @@ class OrderBuilder extends Component {
   }
 
   purchaseConfirmHandler = () => {
+    this.setState({loading: true});
+
     const order = {
       cost: this.state.totalPrice,
       items: {
@@ -89,12 +93,13 @@ class OrderBuilder extends Component {
     
     axios.post('/orders', order)
       .then(response => {
+        this.setState({loading: false, purchasing: false});
         alert("Order Successful. Thank you for your purchase!");
       })
       .catch(error => {
+        this.setState({loading: false, purchasing: false});
         alert("Order Failed. Please try again!");
       });
-    this.setState({purchasing: false});
   }
 
   render() {
@@ -102,14 +107,19 @@ class OrderBuilder extends Component {
     for (let key in disabledItems) {
       disabledItems[key] = disabledItems[key] <= 0;
     }
+    let orderSummary = <OrderSummary 
+                          items={this.state.items}
+                          price={this.state.totalPrice}
+                          purchaseCancelled={this.purchaseCancelHandler} 
+                          purchaseConfirmed={this.purchaseConfirmHandler}/>;
+
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
+    }
     return(
       <Aux>
         <Modal show={this.state.purchasing} modalDismissed={this.purchaseCancelHandler}>
-          <OrderSummary 
-            items={this.state.items}
-            price={this.state.totalPrice}
-            purchaseCancelled={this.purchaseCancelHandler} 
-            purchaseConfirmed={this.purchaseConfirmHandler}/>
+          {orderSummary}
         </Modal>
         <Order items={this.state.items} />
         <OrderControls 
