@@ -18,16 +18,21 @@ const ITEM_PRICES = {
 class OrderBuilder extends Component {
 
   state = {
-    items: {
-      lettuce: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0
-    },
+    items: null,
     totalPrice: 3,
     purchasable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
+  }
+
+  componentDidMount () {
+    axios.get('http://localhost:5000/items')
+      .then(response => {
+        this.setState({items: response.data.items});
+      }).catch(error => {
+        this.setState({error: true})
+      });
   }
 
   updatePurchaseState(items) {
@@ -108,28 +113,53 @@ class OrderBuilder extends Component {
     for (let key in disabledItems) {
       disabledItems[key] = disabledItems[key] <= 0;
     }
-    let orderSummary = <OrderSummary 
-                          items={this.state.items}
-                          price={this.state.totalPrice}
-                          purchaseCancelled={this.purchaseCancelHandler} 
-                          purchaseConfirmed={this.purchaseConfirmHandler}/>;
+
+    let orderSummary = null;
+
+    let order = <Spinner />
 
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
+
+    if (this.state.error) {
+      order = (
+        <div>
+          <h1>Sorry, it looks like something went wrong</h1>
+          <h5>Please try again</h5>
+        </div>
+      );
+    }
+
+    if (this.state.items) {
+      order = (
+        <Aux>
+          <Order items={this.state.items} />
+          <OrderControls 
+            itemAdded={this.addItemHandler}
+            itemRemoved={this.removeItemHandler}
+            disabled={disabledItems}
+            price={this.state.totalPrice}
+            purchasable={this.state.purchasable}
+            ordered={this.purchasingHandler} />
+          </Aux>
+      );
+
+      orderSummary = (
+        <OrderSummary 
+          items={this.state.items}
+          price={this.state.totalPrice}
+          purchaseCancelled={this.purchaseCancelHandler} 
+          purchaseConfirmed={this.purchaseConfirmHandler}/>
+      );
+    }
+
     return(
       <Aux>
         <Modal show={this.state.purchasing} modalDismissed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
-        <Order items={this.state.items} />
-        <OrderControls 
-          itemAdded={this.addItemHandler}
-          itemRemoved={this.removeItemHandler}
-          disabled={disabledItems}
-          price={this.state.totalPrice}
-          purchasable={this.state.purchasable}
-          ordered={this.purchasingHandler} />
+        {order}
       </Aux>
     );
   }
