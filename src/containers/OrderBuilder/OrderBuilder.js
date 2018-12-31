@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Order from '../../components/Order/Order';
 import OrderControls from '../../components/Order/OrderControls/OrderControls';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Aux/Aux';
 import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import OrderSummary from '../../components/Order/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 
@@ -94,11 +95,11 @@ class OrderBuilder extends Component {
     axios.post('/orders', order)
       .then(response => {
         this.setState({loading: false, purchasing: false});
-        alert("Order Successful. Thank you for your purchase!");
+        // alert("Order Successful. Thank you for your purchase!");
       })
       .catch(error => {
         this.setState({loading: false, purchasing: false});
-        alert("Order Failed. Please try again!");
+        // alert("Order Failed. Please try again!");
       });
   }
 
@@ -134,4 +135,4 @@ class OrderBuilder extends Component {
   }
 }
 
-export default OrderBuilder;
+export default withErrorHandler(OrderBuilder, axios);
