@@ -20,7 +20,7 @@ class OrderBuilder extends Component {
   state = {
     items: null,
     totalPrice: 3,
-    purchasable: false,
+    purchasable: true,
     purchasing: false,
     loading: false,
     error: false
