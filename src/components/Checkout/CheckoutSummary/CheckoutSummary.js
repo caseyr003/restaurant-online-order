@@ -12,8 +12,8 @@ const checkoutSummary = (props) => {
         <Order items={props.items} />
       </div>
       <div>
-        <Button type="Danger" clicked={props.cancelled}>Cancel</Button>
-        <Button type="Success" clicked={props.continue}>Continue</Button>
+        <Button type="Danger" clicked={props.checkoutCancelled}>Cancel</Button>
+        <Button type="Success" clicked={props.checkoutContinued}>Continue</Button>
       </div>
     </div>
   );
