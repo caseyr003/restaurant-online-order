@@ -74,42 +74,11 @@ class OrderBuilder extends Component {
   }
 
   purchaseConfirmHandler = () => {
-    // this.setState({loading: true});
-
-    // const order = {
-    //   cost: this.state.totalPrice,
-    //   items: {
-    //     lettuce: this.state.items.lettuce,
-    //     cheese: this.state.items.cheese,
-    //     bacon: this.state.items.bacon,
-    //     meat: this.state.items.meat
-    //   },
-    //   customer: {
-    //     name: 'Casey',
-    //     id: 1,
-    //     address: {
-    //       street: '1000 JS Way',
-    //       zipCode: '86753',
-    //       country: 'US'
-    //     },
-    //     email: 'casey@testemail.com'
-    //   },
-    //   deliveryMethod: 'pickup'
-    // }
-    
-    // axios.post('/orders', order)
-    //   .then(response => {
-    //     this.setState({loading: false, purchasing: false});
-    //     // alert("Order Successful. Thank you for your purchase!");
-    //   })
-    //   .catch(error => {
-    //     this.setState({loading: false, purchasing: false});
-    //     // alert("Order Failed. Please try again!");
-    //   });
     const queryParams = [];
     for (let i in this.state.items) {
       queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.items[i]));
     }
+    queryParams.push('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/checkout',

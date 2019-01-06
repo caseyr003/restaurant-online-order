@@ -5,19 +5,19 @@ import ContactInfo from './ContactInfo/ContactInfo';
 
 class Checkout extends Component {
   state = {
-    items: {
-      lettuce: 1,
-      cheese: 1,
-      bacon: 0,
-      meat: 1
-    }
+    items: null,
+    price: 0
   }
 
-  componentDidMount () {
+  componentWillMount () {
     const query = new URLSearchParams(this.props.location.search);
     const items = {};
     for (let param of query.entries()) {
-      items[param[0]] = +param[1];
+      if (param[0] === 'price') {
+        this.setState({price: +param[1]});
+      } else {
+        items[param[0]] = +param[1];
+      }
     }
     this.setState({items: items});
   }
@@ -37,7 +37,9 @@ class Checkout extends Component {
           checkoutCancelled={this.checkoutCancelHandler}
           checkoutContinued={this.checkoutContinuedHandler}
           items={this.state.items} />
-        <Route path={this.props.match.path + '/info'} component={ContactInfo} />
+        <Route 
+          path={this.props.match.path + '/info'} 
+          render={() => (<ContactInfo items={this.state.items} price={this.state.price} {...this.props} />)} />
       </div>
     );
   }
