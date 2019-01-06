@@ -1,0 +1,21 @@
+.ContactInfo {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  border: 1px solid #eee;
+  box-shadow: 2px 3px 2px #ccc;
+}
+
+.ContactInfo input {
+  width: 80%;
+  height: 34px;
+  font-size: 16px;
+  margin: 10px auto;
+  border-radius: 4px;
+}
+
+@media (min-width: 600px) {
+  .ContactInfo {
+    width: 500px;
+  }
+}
