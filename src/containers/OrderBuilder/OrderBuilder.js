@@ -31,7 +31,7 @@ class OrderBuilder extends Component {
       .then(response => {
         this.setState({items: response.data.items});
       }).catch(error => {
-        this.setState({error: true})
+        this.setState({error: true});
       });
   }
 
